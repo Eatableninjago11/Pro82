@@ -15,9 +15,6 @@ import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import { FlatList } from "react-native-gesture-handler";
 
-let customFonts = {
-  "Bubblegum-Sans": require("../assets/fonts/BubblegumSans-Regular.ttf")
-};
 
 let stories = require("./temp_stories.json");
 
@@ -29,14 +26,7 @@ export default class Feed extends Component {
     };
   }
 
-  async _loadFontsAsync() {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
-  }
-
-  componentDidMount() {
-    this._loadFontsAsync();
-  }
+ 
 
   renderItem = ({ item: story }) => {
     return <StoryCard story={story} />;
@@ -45,9 +35,7 @@ export default class Feed extends Component {
   keyExtractor = (item, index) => index.toString();
 
   render() {
-    if (!this.state.fontsLoaded) {
-      return <AppLoading />;
-    } else {
+  
       return (
         <View style={styles.container}>
           <SafeAreaView style={styles.droidSafeArea} />
@@ -73,7 +61,7 @@ export default class Feed extends Component {
       );
     }
   }
-}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -104,7 +92,6 @@ const styles = StyleSheet.create({
   appTitleText: {
     color: "white",
     fontSize: RFValue(28),
-    fontFamily: "Bubblegum-Sans"
   },
   cardContainer: {
     flex: 0.93

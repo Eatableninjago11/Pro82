@@ -13,9 +13,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 
-let customFonts = {
-  "Bubblegum-Sans": require("../assets/fonts/BubblegumSans-Regular.ttf")
-};
+
 
 export default class StoryCard extends Component {
   constructor(props) {
@@ -25,50 +23,44 @@ export default class StoryCard extends Component {
     };
   }
 
-  async _loadFontsAsync() {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
-  }
 
-  componentDidMount() {
-    this._loadFontsAsync();
-  }
+
+
 
   render() {
-    if (!this.state.fontsLoaded) {
-      return <AppLoading />;
-    } else {
+    
       return (
-        <View style={styles.container}>
-          <View style={styles.cardContainer}>
-            <Image
-              source={require("../assets/post.jpeg")}
-              style={styles.storyImage}
-            ></Image>
-
-            <View style={styles.titleContainer}>
-              <Text style={styles.storyTitleText}>
-                {this.props.story.title}
-              </Text>
-              <Text style={styles.storyAuthorText}>
-                {this.props.story.author}
-              </Text>
-              <Text style={styles.descriptionText}>
-                {this.props.story.description}
-              </Text>
-            </View>
-            <View style={styles.actionContainer}>
-              <View style={styles.likeButton}>
-                <Ionicons name={"heart"} size={RFValue(30)} color={"white"} />
-                <Text style={styles.likeText}>12k</Text>
-              </View>
-            </View>
-          </View>
-        </View>
+       <View style={styles.container}>
+         <View style={styles.cardContainer}>
+           <View style={styles.authorContainer}>
+             <View style={styles.authorImageContainer}>
+               <Image
+               source={require("../assets/profile_img.png")}
+               style={styles.profileImage}
+               ></Image>
+             </View>
+             <View style={styles.authorNameContainer}>
+               <Text style={styles.authorNameText}>{this.props.post.author}</Text>
+             </View>
+           </View>
+           <Image source={require("../assets/post.jpeg")} style={styles.postImage} />
+           <View style={styles.captionContainer}>
+             <Text style={styles.captionText}>
+               {this.props.post.caption}
+             </Text>
+             <View style={styles.actionContainer}>
+               <View style={styles.likeButton}>
+                 <Ionicons name={"heart"} size={RFValue(30)} color={"white"} />
+                 <Text style={styles.likeText}>12K</Text>
+               </View>
+             </View>
+           </View>
+         </View>
+       </View>
       );
     }
   }
-}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -91,16 +83,13 @@ const styles = StyleSheet.create({
   },
   storyTitleText: {
     fontSize: RFValue(25),
-    fontFamily: "Bubblegum-Sans",
     color: "white"
   },
   storyAuthorText: {
     fontSize: RFValue(18),
-    fontFamily: "Bubblegum-Sans",
     color: "white"
   },
   descriptionText: {
-    fontFamily: "Bubblegum-Sans",
     fontSize: 13,
     color: "white",
     paddingTop: RFValue(10)
@@ -121,7 +110,6 @@ const styles = StyleSheet.create({
   },
   likeText: {
     color: "white",
-    fontFamily: "Bubblegum-Sans",
     fontSize: RFValue(25),
     marginLeft: RFValue(5)
   }
